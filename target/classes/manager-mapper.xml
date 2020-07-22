@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uestc.learning.mapper.ManagerMapper">
+	<select id="findManagerByUsername"
+		resultType="uestc.learning.entity.Manager">
+		select * from "manager" where loginname=#{name}
+	</select>
+	
+	<insert id="addManager">
+		insert into "manager" (loginname, password) values (#{0}, #{1})
+	</insert>
+</mapper>

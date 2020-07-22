@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uestc.learning.mapper.BikerMapper">
+
+	<select id="getBikerByBikername"
+		resultType="uestc.learning.entity.Biker">
+		select * from biker where bikername=#{bikername}
+	</select>
+	
+	<select id="getBikersByStatus"
+		resultType="uestc.learning.entity.Biker">
+		select * from biker where status=#{status}
+	</select>
+
+	<select id="getBikerByBikernameAndPassword"
+		resultType="uestc.learning.entity.Biker">
+		select * from biker where bikername=#{0} and password=#{1}
+	</select>
+
+	<insert id="addBiker">
+		insert into biker (bikername, password, name, tel)
+		values(#{0}, #{1}, #{2}, #{3})
+	</insert>
+	
+	<update id="updateBikerStatus">
+		update biker 
+		set status=#{status}
+		where bikerid = #{bikerid}
+	</update>
+	
+</mapper>

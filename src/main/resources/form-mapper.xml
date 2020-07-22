@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uestc.learning.mapper.FormMapper">
+	
+	<insert id="addForm">
+		insert into form (foodids, userid, createtime, address, info, resid)
+		values(#{foodids}, #{userid}, now(), #{address}, #{info}, #{resid})		
+	</insert>
+	
+	<select id="getFormsByUserid" resultType="uestc.learning.entity.Form">
+		select *
+		from form
+		where userid = #{userid}
+	</select>
+	
+	<select id="getFormsByResid" resultType="uestc.learning.entity.Form">
+		select *
+		from form
+		where resid = #{resid}
+	</select>
+	
+	<select id="getFormsByResidNStatus" resultType="uestc.learning.entity.Form">
+		select *
+		from form
+		where resid = #{resid} and status = #{status}
+	</select>
+	<select id="getFormsByBikeridNStatus" resultType="uestc.learning.entity.Form">
+		select *
+		from form
+		where bikerid = #{bikerid} and status = #{status}
+	</select>
+	
+	<update id="updateFormStatus">
+		update form 
+		set status=#{status}, bikerid=#{bikerid}
+		where formid = #{formid}
+	</update>
+	
+	<select id="getFormByKeywordCount" resultType="int">
+		select count(*)
+		from "form"
+		where status like concat('%', #{keyword}, '%')
+	</select>
+
+	<select id="getFormsByKeyword" resultType="uestc.learning.entity.Form">
+		select *
+		from "form"
+		where status like concat('%', #{keyword}, '%')
+		offset #{begin} limit #{pageSize}
+	</select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uestc.learning.mapper.ShopperMapper">
+
+	<select id="getShopperByUsername"
+		resultType="uestc.learning.entity.Shopper">
+		select * from shopper where username=#{username}
+	</select>
+	
+
+	<select id="getShopperByUsernameAndPassword"
+		resultType="uestc.learning.entity.Shopper">
+		select * from shopper where username=#{0} and password=#{1}
+	</select>
+
+	<insert id="addShopper">
+		insert into shopper (username, password, manageres)
+		values(#{0}, #{1}, #{2})
+	</insert>
+	
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uestc.learning.mapper.UserMapper">
+	<resultMap type="uestc.learning.entity.User" id="baseUserMap">
+		<result column="loginname" property="id" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="tel" property="tel" />
+	</resultMap>
+	<select id="findUserByUsername"
+		resultType="uestc.learning.entity.User">
+		select * from "user" where name=#{name}
+	</select>
+
+	<select id="findUserById" resultMap="baseUserMap">
+		select * from "user" where
+		loginname=#{id}
+	</select>
+
+	<select id="findUserByUsernameAndPassword"
+		resultType="uestc.learning.entity.User">
+		select * from "user" where loginname=#{0} and password=#{1}
+	</select>
+
+	<insert id="addUser">
+		insert into "user"(loginname, password, name, tel)
+		values(#{0}, #{1}, #{2}, #{3})
+	</insert>
+
+	<select id="getUserByKeywordCount" resultType="int">
+		select count(*)
+		from "user"
+		where loginname like concat('%', #{keyword}, '%') or
+		name like concat('%', #{keyword}, '%') or
+		tel like concat('%', #{keyword}, '%')
+	</select>
+
+	<select id="getUsersByKeyword" resultMap="baseUserMap">
+		select loginname, password, name, tel
+		from "user"
+		where loginname like concat('%', #{keyword}, '%') or
+		name like concat('%', #{keyword}, '%') or
+		tel like concat('%', #{keyword}, '%')
+		offset #{begin} limit #{pageSize}
+	</select>
+	
+	<select id="deleteUserById">
+		delete from "user"
+		where loginname = #{username}
+	</select>
+</mapper>
